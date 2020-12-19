@@ -1,0 +1,23 @@
+name: "Continuous Integration"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use oxr463/setup-cordova
+      uses: oxr463/setup-cordova@0.0.2
+      with:
+        exec: |
+          cd resources && \
+          cordova platform add browser && \
+          cordova platform add ios|android && \
+          cordova plugin add cordova-plugin-device && \
+          cordova plugin add cordova-plugin-dialogs && \
+          cordova plugin add cordova-plugin-splashscreen
